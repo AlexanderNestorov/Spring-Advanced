@@ -1,6 +1,5 @@
 package com.example.books.model.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -11,7 +10,7 @@ public class BookEntity extends BaseEntity{
     private String title;
     private String isbn;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private AuthorEntity author;
 
     public String getTitle() {

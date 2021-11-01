@@ -75,6 +75,7 @@ public class BooksApplicationInit implements CommandLineRunner {
     private void initAuthor(String authorName, String... books) {
         AuthorEntity author = new AuthorEntity();
         author.setName(authorName);
+        author = authorRepository.save(author);
 
         List<BookEntity> allBooks = new ArrayList<>();
 
