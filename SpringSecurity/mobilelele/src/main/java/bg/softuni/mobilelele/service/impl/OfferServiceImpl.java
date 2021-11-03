@@ -3,6 +3,7 @@ package bg.softuni.mobilelele.service.impl;
 import bg.softuni.mobilelele.model.binding.OfferAddBindModel;
 import bg.softuni.mobilelele.model.entity.ModelEntity;
 import bg.softuni.mobilelele.model.entity.OfferEntity;
+import bg.softuni.mobilelele.model.entity.UserEntity;
 import bg.softuni.mobilelele.model.entity.enums.EngineEnum;
 import bg.softuni.mobilelele.model.entity.enums.TransmissionEnum;
 import bg.softuni.mobilelele.model.service.OfferAddServiceModel;
@@ -111,12 +112,12 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
-    public OfferAddServiceModel addOffer(OfferAddBindModel offerAddBindModel) {
+    public OfferAddServiceModel addOffer(OfferAddBindModel offerAddBindModel, String ownerId) {
+        UserEntity userEntity = userRepository.findByUsername(ownerId).orElseThrow();
         OfferAddServiceModel offerAddServiceModel = modelMapper.map(offerAddBindModel, OfferAddServiceModel.class);
         OfferEntity newOffer = modelMapper.map(offerAddServiceModel, OfferEntity.class);
         newOffer.setCreated(Instant.now());
-        //TODO
-        //newOffer.setSeller(userRepository.findByUsername(currentUser.getUserName()).orElseThrow());
+        newOffer.setSeller(userEntity);
         ModelEntity model = modelRepository.getById(offerAddBindModel.getModelId());
         newOffer.setModel(model);
 
