@@ -9,6 +9,10 @@ import bg.softuni.mobilelele.repository.UserRoleRepository;
 import bg.softuni.mobilelele.service.UserService;
 import java.util.List;
 import java.util.Set;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -18,13 +22,16 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final UserRoleRepository userRoleRepository;
+    private final MobileleUserServiceImpl mobileleUserService;
 
     public UserServiceImpl(PasswordEncoder passwordEncoder,
                            UserRepository userRepository,
-                           UserRoleRepository userRoleRepository) {
+                           UserRoleRepository userRoleRepository,
+        MobileleUserServiceImpl mobileleUserService) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.userRoleRepository = userRoleRepository;
+        this.mobileleUserService = mobileleUserService;
     }
 
     @Override
@@ -93,8 +100,17 @@ public class UserServiceImpl implements UserService {
 
         newUser = userRepository.save(newUser);
 
-        // TODO: register user
-        //login(newUser);
+        // this is the Spring representation of a user
+        UserDetails principal = mobileleUserService.loadUserByUsername(newUser.getUsername());
+        Authentication authentication = new UsernamePasswordAuthenticationToken(
+            principal,
+            newUser.getPassword(),
+            principal.getAuthorities()
+        );
+
+        SecurityContextHolder.
+            getContext().
+            setAuthentication(authentication);
     }
 
     public boolean isUserNameFree(String username) {
