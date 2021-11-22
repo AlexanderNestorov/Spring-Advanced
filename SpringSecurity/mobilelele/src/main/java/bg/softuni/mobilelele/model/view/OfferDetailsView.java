@@ -2,8 +2,6 @@ package bg.softuni.mobilelele.model.view;
 
 import bg.softuni.mobilelele.model.entity.enums.EngineEnum;
 import bg.softuni.mobilelele.model.entity.enums.TransmissionEnum;
-
-
 import java.time.Instant;
 
 public class OfferDetailsView {
@@ -33,7 +31,18 @@ public class OfferDetailsView {
 
     private Long id;
 
+    private boolean canDelete;
+
     public OfferDetailsView() {
+    }
+
+    public boolean isCanDelete() {
+        return canDelete;
+    }
+
+    public OfferDetailsView setCanDelete(boolean canDelete) {
+        this.canDelete = canDelete;
+        return this;
     }
 
     public String getBrand() {

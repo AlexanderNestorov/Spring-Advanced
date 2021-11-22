@@ -83,13 +83,15 @@
             </p>
         </div>
 
-        <div th:if="${userNameOccupied}" class="row">
-            <div class="form-group col-md-12 mb-6">
-                <p class="errors alert alert-danger">
-                    Username is occupied.
-                </p>
-            </div>
-        </div>
+        <!--this is not necessary since the @interface UniqueUserName is visualized-->
+
+<!--        <div th:if="${userNameOccupied}" class="row">-->
+<!--            <div class="form-group col-md-12 mb-6">-->
+<!--                <p class="errors alert alert-danger">-->
+<!--                    Username is occupied.-->
+<!--                </p>-->
+<!--            </div>-->
+<!--        </div>-->
 
         <div class="row">
             <div class="col col-md-4">
