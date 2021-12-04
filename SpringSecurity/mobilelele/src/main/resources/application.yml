@@ -3,7 +3,7 @@ spring:
     driverClassName: com.mysql.cj.jdbc.Driver
     url: "jdbc:mysql://localhost:3306/mobilelele?useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC"
     username: root
-    password: mypass
+    password:
   sql:
     init:
       mode: always
@@ -29,3 +29,12 @@ logging:
   level:
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: ["*"]
+      base-path: "/admin"
+  server:
+    port: 8081
